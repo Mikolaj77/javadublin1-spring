@@ -15,18 +15,21 @@ import java.util.Optional;
 public class InMemoryUserRepository implements UserRepository{
     private List<User> users;
     private RepositoryHelper repositoryHelper;
+    private int nextId;
 
     @Autowired
-
     public InMemoryUserRepository(){
         this.users = new ArrayList<>();
+        this.repositoryHelper = repositoryHelper;
+        this.nextId = 1;
+
     }
 
     InMemoryUserRepository(List<User> users) {
         this.users = users;
     }
-    @Override
 
+    @Override
     public Optional<User> findById(Long id) {
         if (id == null || id <= 0){
             throw new IllegalArgumentException();
@@ -40,13 +43,22 @@ public class InMemoryUserRepository implements UserRepository{
     public List<User> findAll() {
         return new ArrayList<>(users);
     }
+
+    @Override
+    public void save(User user) {
+        user.setId((long) nextId++);
+        users.add(user);
+
+    }
+
     @PostConstruct
     private void init() {
         if (users.size() == 0) {
-            this.users.add(new User(1L, "Szymon", "Nowak", Gender.MALE));
-            this.users.add(new User(2L, "Jan", "Kowalski", Gender.MALE));
-            this.users.add(new User(3L, "Anna", "Wiśniewska", Gender.FEMALE));
-            this.users.add(new User(4L, "Karolina", "Nowak", Gender.FEMALE));
+            save(new User(1L, "Szymon", "Nowak", Gender.MALE));
+            save(new User(2L, "Jan", "Kowalski", Gender.MALE));
+            save(new User(3L, "Anna", "Wiśniewska", Gender.FEMALE));
+            save(new User(4L, "Karolina", "Nowak", Gender.FEMALE));
+
         }
     }
 }
