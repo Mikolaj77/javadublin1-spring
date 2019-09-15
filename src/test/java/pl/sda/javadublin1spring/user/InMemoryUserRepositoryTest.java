@@ -24,7 +24,7 @@ public class InMemoryUserRepositoryTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void findById_ShouldIdThrowIllegalArgumentExceptionWhenPassingNull() {
+    public void findById_ShouldThrowIllegalArgumentExceptionWhenPassingNull() {
         // given
         Long id = null;
         // when
@@ -32,7 +32,7 @@ public class InMemoryUserRepositoryTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void findById_ShouldIdThrowIllegalArgumentExceptionWhenPassingNegativeValue() {
+    public void findById_ShouldThrowIllegalArgumentExceptionWhenPassingNegativeValue() {
         // given
         Long id = -5L;
         // when
@@ -63,7 +63,7 @@ public class InMemoryUserRepositoryTest {
         Optional<User> actual = inMemoryUserRepository.findById(id);
 
         // then asercje (aserty)
-        Assert.assertTrue("Optional was empty. User not fonud", actual.isPresent());
+        Assert.assertTrue("Optional was empty. User not found", actual.isPresent());
         Assert.assertEquals("Found user is not the correct one", expectedUser, actual.get());
 
 

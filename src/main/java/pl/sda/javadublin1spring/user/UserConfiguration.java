@@ -7,10 +7,11 @@ import java.util.Arrays;
 
 @Configuration
 public class UserConfiguration {
+
     @Bean
-    public  UserRepository preInitializedInMemoryUserRepository(){
+    public UserRepository preInitializedInMemoryUserRepository() {
         return new InMemoryUserRepository(Arrays.asList(
-                new User (1L, "Jan", "Kowalski", Gender.MALE)));
+                new User(1L, "Jan", "Kowalski", Gender.MALE)));
 
     }
 }

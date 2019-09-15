@@ -1,6 +1,7 @@
 package pl.sda.javadublin1spring.user;
 
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
@@ -13,6 +14,9 @@ import java.util.Optional;
 @Component
 public class InMemoryUserRepository implements UserRepository{
     private List<User> users;
+    private RepositoryHelper repositoryHelper;
+
+    @Autowired
 
     public InMemoryUserRepository(){
         this.users = new ArrayList<>();
@@ -38,11 +42,11 @@ public class InMemoryUserRepository implements UserRepository{
     }
     @PostConstruct
     private void init() {
-
-        this.users.add(new User(1L, "Szymon", "Nowak", Gender.MALE));
-        this.users.add(new User(2L, "Jan", "Kowalski", Gender.MALE));
-        this.users.add(new User(3L, "Anna", "Wiśniewska", Gender.FEMALE));
-        this.users.add(new User(4L, "Karolina", "Nowak", Gender.FEMALE));
-
+        if (users.size() == 0) {
+            this.users.add(new User(1L, "Szymon", "Nowak", Gender.MALE));
+            this.users.add(new User(2L, "Jan", "Kowalski", Gender.MALE));
+            this.users.add(new User(3L, "Anna", "Wiśniewska", Gender.FEMALE));
+            this.users.add(new User(4L, "Karolina", "Nowak", Gender.FEMALE));
+        }
     }
 }

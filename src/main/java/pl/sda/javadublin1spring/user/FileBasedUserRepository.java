@@ -8,6 +8,11 @@ import java.util.Optional;
 
 @Component
 public class FileBasedUserRepository implements UserRepository {
+
+     private RepositoryHelper repositoryHelper;
+     public  FileBasedUserRepository(RepositoryHelper repositoryHelper) {
+         this.repositoryHelper = repositoryHelper;
+     }
     @Override
     public Optional<User> findById(Long id) {
         return Optional.empty();
