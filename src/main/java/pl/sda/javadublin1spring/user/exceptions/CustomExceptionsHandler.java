@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
-@ControllerAdvice   // jezeli w aplikacje polecial wyjatek to go wylapmy i obsluzymy
+@ControllerAdvice   // jezeli w aplikacje polecial wyjatek to go wylapmy i obsluzmy
 public class CustomExceptionsHandler {
 
     @ExceptionHandler(UserNotFoundException.class)
@@ -18,7 +18,7 @@ public class CustomExceptionsHandler {
 
     }
     @ExceptionHandler(InvalidParameterException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)   //ustawianie kodu odpowiedzi
     public ModelAndView handleInvalidParameterException(InvalidParameterException e) {
         ModelAndView modelAndView = new ModelAndView("errors/bad-request");
         modelAndView.addObject("message", e.getMessage());
