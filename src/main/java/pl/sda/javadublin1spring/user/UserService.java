@@ -1,7 +1,8 @@
 package pl.sda.javadublin1spring.user;
 
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
+import pl.sda.javadublin1spring.user.exceptions.InvalidParameterException;
+import pl.sda.javadublin1spring.user.exceptions.UserNotFoundException;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ public class UserService {                      // klasa service opowiada za trz
     private UserRepository userRepository;      //pole
 
 
-    public UserService(@Qualifier("fileBasedUserRepository") UserRepository userRepository) {  // konstruktor
+    public UserService(UserRepository userRepository) {  // konstruktor
         this.userRepository = userRepository;
     }
 
@@ -23,7 +24,21 @@ public class UserService {                      // klasa service opowiada za trz
 
     public List<User> findAll() {
         return userRepository.findAll();
+
+    }public List<User> findByGender(String gender) {
+        try {
+
+
+            Gender enumGender = Gender.valueOf(gender);
+            return  userRepository.findByGender(enumGender);
+        } catch (IllegalArgumentException e) {
+            throw  new InvalidParameterException( "gender");
+
+
+        }
     }
 
-
+    public void saveUser(User user) {
+        userRepository.save(user);
+    }
 }
