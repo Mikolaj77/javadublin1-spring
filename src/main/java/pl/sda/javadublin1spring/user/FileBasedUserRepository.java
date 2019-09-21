@@ -24,6 +24,11 @@ public class FileBasedUserRepository implements UserRepository {
     }
 
     @Override
+    public List<User> findByGender(Gender gender) {
+        return null;
+    }
+
+    @Override
     public void save(User user) {
 
     }
