@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import pl.sda.javadublin1spring.user.entitis.User;
 
 @Controller
 @RequestMapping("/users")

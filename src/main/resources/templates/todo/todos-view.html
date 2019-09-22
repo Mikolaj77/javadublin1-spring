@@ -1,0 +1,10 @@
+<html>
+<body>
+<ul>
+    <li th:each="todo : ${todos}">
+        <h4 th:text="${todo.name} + ' (' + ${todo.status} + ')'"}>Zrobic obiad (TODO)</h4>
+        <p th:text="${todo.description}">Lorem ipsum</p>
+    </li>
+</ul>
+</body>
+</html>

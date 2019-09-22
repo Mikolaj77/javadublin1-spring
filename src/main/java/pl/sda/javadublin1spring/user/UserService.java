@@ -1,44 +1,44 @@
 package pl.sda.javadublin1spring.user;
 
 import org.springframework.stereotype.Component;
+import pl.sda.javadublin1spring.user.entitis.Gender;
+import pl.sda.javadublin1spring.user.entitis.User;
 import pl.sda.javadublin1spring.user.exceptions.InvalidParameterException;
 import pl.sda.javadublin1spring.user.exceptions.UserNotFoundException;
 
 import java.util.List;
 
 @Component
-
 public class UserService {                      // klasa service opowiada za trzymanie logiki naszej domeny (czesto publiczna)
-    private UserRepository userRepository;      //pole
 
+    private JpaUserRepository jpaUserRepository;   //pole
 
-    public UserService(UserRepository userRepository) {  // konstruktor
-        this.userRepository = userRepository;
+    private UserService( JpaUserRepository jpaUserRepository) {
+        this.jpaUserRepository = jpaUserRepository;
     }
 
     public User findById(Long id) {
-        return userRepository.findById(id)
+        return jpaUserRepository.findById(id)  // zmiana z userRepository na jpaUserRepository
                 .orElseThrow(() -> new UserNotFoundException(id));
 
     }
 
-    public List<User> findAll() {
-        return userRepository.findAll();
+    public Iterable<User> findAll() {
+        return jpaUserRepository.findAll(); // zmiana z userRepository na jpaUserRepository
 
-    }public List<User> findByGender(String gender) {
+    }
+
+    public List<User> findByGender(String gender) {
         try {
-
-
             Gender enumGender = Gender.valueOf(gender);
-            return  userRepository.findByGender(enumGender);
+            return jpaUserRepository.findByGender(enumGender);
         } catch (IllegalArgumentException e) {
-            throw  new InvalidParameterException( "gender");
-
+            throw new InvalidParameterException("gender");
 
         }
     }
 
     public void saveUser(User user) {
-        userRepository.save(user);
+        jpaUserRepository.save(user);  // zmiana z userRepository na jpaUserRepository
     }
 }
