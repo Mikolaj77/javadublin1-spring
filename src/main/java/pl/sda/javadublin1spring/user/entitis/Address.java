@@ -1,6 +1,5 @@
-package pl.sda.javadublin1spring.user;
+package pl.sda.javadublin1spring.user.entitis;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,18 +10,12 @@ import javax.persistence.Id;
 
 @Entity
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-
-public class User {
+public class Address  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String firstName;
-    private  String lastName;
-    private  Gender gender;
+    private String city;
+    private String street;
 
-    public String getFullName(){
-        return firstName + "  " + lastName;
-    }
 }

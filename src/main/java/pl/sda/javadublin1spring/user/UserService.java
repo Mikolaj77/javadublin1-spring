@@ -1,6 +1,8 @@
 package pl.sda.javadublin1spring.user;
 
 import org.springframework.stereotype.Component;
+import pl.sda.javadublin1spring.user.entitis.Gender;
+import pl.sda.javadublin1spring.user.entitis.User;
 import pl.sda.javadublin1spring.user.exceptions.InvalidParameterException;
 import pl.sda.javadublin1spring.user.exceptions.UserNotFoundException;
 
@@ -8,11 +10,10 @@ import java.util.List;
 
 @Component
 public class UserService {                      // klasa service opowiada za trzymanie logiki naszej domeny (czesto publiczna)
-    private UserRepository userRepository;  //pole
-    private JpaUserRepository jpaUserRepository;
 
-    private UserService(UserRepository userRepository, JpaUserRepository jpaUserRepository) {
-        this.userRepository = userRepository;
+    private JpaUserRepository jpaUserRepository;   //pole
+
+    private UserService( JpaUserRepository jpaUserRepository) {
         this.jpaUserRepository = jpaUserRepository;
     }
 
@@ -29,9 +30,8 @@ public class UserService {                      // klasa service opowiada za trz
 
     public List<User> findByGender(String gender) {
         try {
-
             Gender enumGender = Gender.valueOf(gender);
-            return userRepository.findByGender(enumGender);
+            return jpaUserRepository.findByGender(enumGender);
         } catch (IllegalArgumentException e) {
             throw new InvalidParameterException("gender");
 
